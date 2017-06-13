@@ -7,7 +7,6 @@ import includes from 'lodash.includes';
 import getFiles from './getFiles';
 
 class WebpackCleanupPlugin {
-
   constructor(options = {}) {
     this.options = options;
     this.previousAssets = [];
@@ -16,8 +15,10 @@ class WebpackCleanupPlugin {
   apply(compiler) {
     const outputPath = compiler.options.output.path;
 
-    compiler.plugin('done', (stats) => {
-      if (compiler.outputFileSystem.constructor.name !== 'NodeOutputFileSystem') {
+    compiler.plugin('done', stats => {
+      if (
+        compiler.outputFileSystem.constructor.name !== 'NodeOutputFileSystem'
+      ) {
         return;
       }
 
@@ -29,7 +30,9 @@ class WebpackCleanupPlugin {
         /**
          * Only include files that were in the previous build
          */
-        include = this.previousAssets.filter(previousAsset => !includes(assets, previousAsset));
+        include = this.previousAssets.filter(
+          previousAsset => !includes(assets, previousAsset),
+        );
 
         /**
          * Cache assets for next build
@@ -47,11 +50,13 @@ class WebpackCleanupPlugin {
         files.forEach(fs.unlinkSync);
       }
       if (!this.options.quiet) {
-        console.log('\nWebpackCleanupPlugin: %s file(s) deleted.', files.length);
+        console.log(
+          '\nWebpackCleanupPlugin: %s file(s) deleted.',
+          files.length,
+        );
       }
     });
   }
-
 }
 
 module.exports = WebpackCleanupPlugin;

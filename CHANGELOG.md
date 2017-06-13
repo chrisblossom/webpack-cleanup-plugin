@@ -4,6 +4,7 @@
 
 * Added **`cleanupOnlyLastBuild`** option
 * Package updates and cleanup
+* Added [prettier](https://github.com/prettier/prettier/)
 
 ## [v0.5.1](https://github.com/gpbl/webpack-cleanup-plugin/tree/v0.5.1) (2017-02-27)
 

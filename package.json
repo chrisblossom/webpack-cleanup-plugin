@@ -2,20 +2,6 @@
   "name": "webpack-cleanup-plugin",
   "version": "0.5.1",
   "description": "Plugin for webpack to cleanup extraneous files from the output path directory",
-  "main": "./lib/WebpackCleanupPlugin.js",
-  "engines": {
-    "node": ">= 4"
-  },
-  "files": [
-    "lib"
-  ],
-  "scripts": {
-    "clean": "rimraf lib",
-    "build": "babel ./src -d ./lib --source-maps",
-    "prepublish": "npm run clean && npm run build",
-    "lint": "eslint src",
-    "test": "mocha --compilers js:babel-register --require ./test/setup.js"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gpbl/webpack-cleanup-plugin.git"
@@ -30,6 +16,33 @@
     "url": "https://github.com/gpbl/webpack-cleanup-plugin/issues"
   },
   "homepage": "https://github.com/gpbl/webpack-cleanup-plugin#readme",
+  "main": "./lib/WebpackCleanupPlugin.js",
+  "engines": {
+    "node": ">= 4"
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "clean": "rimraf lib",
+    "build": "babel ./src -d ./lib --source-maps",
+    "prepublish": "npm run clean && npm run build",
+    "test": "mocha --compilers js:babel-register --require ./test/setup.js",
+    "lint": "eslint src",
+    "prettier": "prettier --single-quote --trailing-comma all --write \"{src/**/*.js,test/**/*.test.js}\"",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "src/**/*.js": [
+      "prettier --single-quote --trailing-comma all --write",
+      "eslint --fix src",
+      "git add"
+    ],
+    "test/**/*.test.js": [
+      "prettier --single-quote --trailing-comma all --write",
+      "git add"
+    ]
+  },
   "devDependencies": {
     "babel-cli": "6.24.1",
     "babel-core": "6.25.0",
@@ -40,8 +53,12 @@
     "chai": "4.0.2",
     "eslint": "3.19.0",
     "eslint-config-airbnb-base": "11.2.0",
+    "eslint-config-prettier": "2.1.1",
     "eslint-plugin-import": "2.3.0",
+    "husky": "0.13.4",
+    "lint-staged": "3.6.1",
     "mocha": "3.4.2",
+    "prettier": "1.4.4",
     "rimraf": "2.6.1",
     "sinon": "2.3.4",
     "sinon-chai": "2.11.0",

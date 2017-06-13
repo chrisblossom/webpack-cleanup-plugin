@@ -2,8 +2,12 @@ import recursiveReadSync from 'recursive-readdir-sync';
 import minimatch from 'minimatch';
 import path from 'path';
 
-export default function getFiles(fromPath, exclude = [], include /* : ?Array<string> */) {
-  const files = recursiveReadSync(fromPath).filter((file) => {
+export default function getFiles(
+  fromPath,
+  exclude = [],
+  include /* : ?Array<string> */,
+) {
+  const files = recursiveReadSync(fromPath).filter(file => {
     /**
      * If 'include' is undefined, include all files
      */
